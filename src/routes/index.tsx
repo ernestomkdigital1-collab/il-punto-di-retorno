@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowRight, Check, LockKeyhole, ShieldCheck, Smartphone, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Check, LockKeyhole, ShieldCheck, Smartphone, Sparkles, Star, Zap } from "lucide-react";
 
 import coverImage from "@/assets/punto-ritorno-cover.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -11,9 +11,16 @@ export const PRODUCT_PRICE = "€8,90";
 export const GUARANTEE_DAYS = 7;
 export const LEGAL_DETAILS = { company: "[NOME AZIENDA / RAGIONE SOCIALE]", contact: "[CONTATTI]" };
 
-const CTA_LABEL = `VOGLIO SCOPRIRE IL PUNTO DI RITORNO — ${PRODUCT_PRICE}`;
+const CTA_LABEL = "VOGLIO SCOPRIRE IL PUNTO DI RITORNO";
 
-const testimonials = Array.from({ length: 5 }, (_, index) => ({ id: index + 1, text: "[INSERIRE TESTIMONIANZA REALE]" }));
+const reviews = [
+  { id: 1, text: "[INSERIRE TESTIMONIANZA REALE — Focus sul risultato ottenuto]", name: "[NOME, età]", rating: 5 },
+  { id: 2, text: "[INSERIRE TESTIMONIANZA REALE — Focus sul risultato ottenuto]", name: "[NOME, età]", rating: 5 },
+  { id: 3, text: "[INSERIRE TESTIMONIANZA REALE — Focus sul risultato ottenuto]", name: "[NOME, età]", rating: 5 },
+  { id: 4, text: "[INSERIRE TESTIMONIANZA REALE — Focus sul risultato ottenuto]", name: "[NOME, età]", rating: 5 },
+  { id: 5, text: "[INSERIRE TESTIMONIANZA REALE — Focus sul risultato ottenuto]", name: "[NOME, età]", rating: 5 },
+  { id: 6, text: "[INSERIRE TESTIMONIANZA REALE — Focus sul risultato ottenuto]", name: "[NOME, età]", rating: 5 },
+];
 
 const faqs = [
   ["Funziona anche se ci siamo già lasciati?", "Sì, i principi possono essere applicati anche dopo una rottura. Tuttavia ogni situazione è diversa e nessun metodo può garantire che una persona specifica torni. L’obiettivo è aiutarti ad agire con maggiore lucidità e capire se esistono condizioni reali per una riconnessione."],
@@ -38,7 +45,7 @@ function PurchaseButton({ light = false, label = CTA_LABEL }: { light?: boolean;
       <Button asChild variant={light ? "conversionLight" : "conversion"} size="conversion" className="w-full">
         <a href={CHECKOUT_URL}>{label}<ArrowRight aria-hidden="true" /></a>
       </Button>
-      <p className={`mt-2 text-center text-xs ${light ? "text-ivory/70" : "text-muted-foreground"}`}>Accesso immediato • Pagamento sicuro</p>
+      <p className={`mt-2 text-center text-xs ${light ? "text-ivory/70" : "text-muted-foreground"}`}>Accesso immediato •</p>
     </div>
   );
 }
@@ -94,11 +101,22 @@ function Index() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-24">
+      <section className="py-10 sm:py-14">
         <div className="section-shell">
-          <div className="mx-auto max-w-3xl text-center reveal"><div className="editorial-rule mx-auto mb-6" /><h2 className="text-4xl font-semibold leading-tight sm:text-5xl">Cosa succede quando smetti di cercare di convincerlo</h2><p className="mt-4 text-muted-foreground">A volte il cambiamento comincia proprio quando smetti di fare sempre di più.</p></div>
-          <div className="hide-scrollbar -mx-4 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-5 md:mx-0 md:mt-10 md:grid md:grid-cols-5 md:gap-4 md:overflow-visible md:px-0">
-            {testimonials.map((item) => <article key={item.id} className="min-h-44 min-w-[78vw] snap-center border border-border bg-card p-5 shadow-soft md:min-h-52 md:min-w-0 md:p-6"><span className="font-serif text-4xl text-champagne">“</span><p className="mt-4 text-sm font-semibold leading-relaxed text-muted-foreground md:mt-6">{item.text}</p><div className="mt-6 h-px w-10 bg-champagne" /></article>)}
+          <div className="mx-auto max-w-3xl px-4 text-center sm:px-0">
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.18em] text-primary">Cosa dicono chi l&apos;ha applicato</p>
+            <h2 className="text-2xl font-semibold leading-tight sm:text-3xl">Storie reali di donne che hanno invertito la dinamica</h2>
+          </div>
+          <div className="hide-scrollbar -mx-4 mt-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 sm:mx-0 sm:mt-8 sm:grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 sm:overflow-visible sm:px-0">
+            {reviews.map((review) => (
+              <article key={review.id} className="min-w-[82vw] snap-center rounded-xl border border-border bg-card p-5 shadow-soft sm:min-w-0">
+                <div className="flex gap-0.5 text-champagne" aria-label={`${review.rating} su 5 stelle`}>
+                  {Array.from({ length: review.rating }).map((_, i) => <Star key={i} className="size-4 fill-current" />)}
+                </div>
+                <p className="mt-4 text-sm font-medium leading-relaxed text-foreground">{review.text}</p>
+                <p className="mt-4 text-xs font-bold uppercase tracking-wider text-muted-foreground">{review.name}</p>
+              </article>
+            ))}
           </div>
         </div>
       </section>
